@@ -1,0 +1,43 @@
+<div class="score-container">
+    <div class="score-column">
+        <h2 class="participant1">Participant 1 Score: {{ participant1Score }}</h2>
+        <p>Yuko: {{ participant1YukoCount }}</p>
+        <p>Waza-ari: {{ participant1WazariCount }}</p>
+        <p>Ippon: {{ participant1IpponCount }}</p>
+        <div class="score-icons">
+            <div *ngFor="let _ of generateArray(participant1SenshuCount)" class="senshu-circle"></div>
+        </div>
+        <button (click)="addYuko(1)">Yuko</button>
+        <button (click)="addWazari(1)">Wazari</button>
+        <button (click)="addIppon(1)">Ippon</button>
+        <button (click)="addSenshu(1)">Senshu</button>
+
+        <!-- Penalties -->
+        <app-penalties [participantNumber]="1"></app-penalties>
+
+    </div>
+
+    <div class="timer-column">
+        <div class="timer">
+            <app-timer></app-timer>
+        </div>
+    </div>
+    <div class="score-column">
+        <h2 class="participant2">Participant 2 Score: {{ participant2Score }}</h2>
+        <p>Yuko: {{ participant2YukoCount }}</p>
+        <p>Waza-ari: {{ participant2WazariCount }}</p>
+        <p>Ippon: {{ participant2IpponCount }}</p>
+        <div class="score-icons">
+            <div *ngFor="let _ of generateArray(participant2SenshuCount)" class="senshu-circle"></div>
+        </div>
+        <button (click)="addYuko(2)">Yuko</button>
+        <button (click)="addWazari(2)">Wazari</button>
+        <button (click)="addIppon(2)">Ippon</button>
+        <button (click)="addSenshu(2)">Senshu</button>
+
+        <!-- Penalties -->
+        <app-penalties [participantNumber]="2"></app-penalties>
+
+    </div>
+
+</div>

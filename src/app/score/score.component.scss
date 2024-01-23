@@ -1,0 +1,78 @@
+
+.score-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 20px;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.score-column {
+  flex: 1;
+  padding: 20px;
+}
+
+.participant {
+  background-color: #fff;
+  border: 1px solid #000;
+  padding: 10px;
+  text-align: center;
+}
+
+.participant-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.score-type {
+  margin-top: 10px;
+}
+
+.score-label {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.score-value {
+  font-size: 24px;
+}
+
+.penalties {
+  margin-top: 20px;
+}
+
+.penalty-label {
+  font-size: 16px;
+}
+
+
+.score-column {
+  flex: 1;
+  margin-right: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+.senshu-circle {
+  width: 20px;
+  height: 20px;
+  background-color: gold; /* You can adjust the color as needed */
+  border-radius: 50%;
+  margin-right: 5px;
+  display: inline-block;
+}
+/* Style for Participant 1 */
+.participant1 {
+  color: red;
+}
+
+/* Style for Participant 2 */
+.participant2 {
+  color: blue;
+}
