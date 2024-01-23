@@ -7,14 +7,12 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-title= 'karate-score'
+  title = 'karate-score'
 
 
   ngOnInit() {
     // Implement your initialization logic here
   }
-
-
 
 
 }
