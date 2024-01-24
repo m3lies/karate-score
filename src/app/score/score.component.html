@@ -18,7 +18,7 @@
       <button (click)="removeScore('wazaAri', 1)">Remove Waza-ari</button>
       <button (click)="removeScore('ippon', 1)">Remove Ippon</button>
       <!-- Penalties -->
-      <app-penalties></app-penalties>
+      <app-penalties #penalties1></app-penalties>
     </div>
   </div>
 
@@ -48,7 +48,7 @@
 
 
     <!-- Penalties -->
-    <app-penalties></app-penalties>
+    <app-penalties #penalties2></app-penalties>
 
   </div>
   <button (click)="resetScoreAndPenalties()">Reset score and penalties</button>

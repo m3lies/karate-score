@@ -7,8 +7,8 @@ import {PenaltiesComponent} from "../penalties/penalties.component";
   styleUrls: ['./score.component.scss'],
 })
 export class ScoreComponent {
-  @ViewChild(PenaltiesComponent) penaltiesComponent1!: PenaltiesComponent;
-  @ViewChild(PenaltiesComponent) penaltiesComponent2!: PenaltiesComponent;
+  @ViewChild("penalties1") penaltiesComponent1!: PenaltiesComponent;
+  @ViewChild("penalties2") penaltiesComponent2!: PenaltiesComponent;
 
   totalScores: number[] = [0, 0];
   scores: { yuko: number, wazaAri: number, ippon: number }[] = [
