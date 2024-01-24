@@ -16,6 +16,19 @@ export class TimerComponent {
   calculateTotalSeconds(): number {
     return this.initialMinutes * 60 + this.initialSeconds;
   }
+
+  // Inside your TimerComponent class
+  onInputSecondsChange() {
+    // Ensure the seconds value is within the valid range (0-59)
+    if (this.initialSeconds < 0) {
+      this.initialSeconds = 0;
+    } else if (this.initialSeconds > 59) {
+      this.initialSeconds = 59;
+    }
+  }
+
+
+
   startTimer() {
     if (!this.isRunning) {
       this.isRunning = true;

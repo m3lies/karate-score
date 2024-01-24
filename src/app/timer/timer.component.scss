@@ -3,3 +3,10 @@
   padding: 20px;
   text-align: center;
 }
+/* Style for Timer Control Buttons */
+.timer-controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Adjust the spacing between "Start" and "Stop" buttons */
+}
+

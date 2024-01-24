@@ -9,20 +9,27 @@
       </div>
 
       <!-- Set Timer Input -->
+      <!-- Set Timer Input -->
       <div class="input-group mt-3">
-        <input type="number" class="form-control" placeholder="Minutes" [(ngModel)]="initialMinutes">
-        <input type="number" class="form-control" placeholder="Seconds" [(ngModel)]="initialSeconds">
+        <!-- Minutes Input -->
+        <input type="number" class="form-control timer-input" placeholder="00" [(ngModel)]="initialMinutes">
+
+        <!-- Seconds Input -->
+        <input type="number" class="form-control timer-input" placeholder="00" [(ngModel)]="initialSeconds" (input)="onInputSecondsChange()">
+
+        <!-- Set Button -->
         <div class="input-group-append">
-          <button class="btn btn-success" (click)="updateTimer()">Set</button>
+          <button class="btn btn-success timer-button" (click)="updateTimer()">Set</button>
         </div>
       </div>
 
       <!-- Timer Control Buttons -->
-      <div class="mt-3">
-        <button class="btn btn-primary" (click)="startTimer()" [disabled]="isRunning">Start</button>
+      <div class="timer-controls">
+        <button class="btn btn-primary" (click)="startTimer()" [ngClass]="{'btn-secondary': isRunning, 'btn-primary': !isRunning}" [disabled]="isRunning">Start</button>
         <button class="btn btn-danger" (click)="stopTimer()" [disabled]="!isRunning">Stop</button>
-        <button class="btn btn-warning" (click)="resetTimer()">Reset</button>
       </div>
+
+
     </div>
   </div>
 </div>
