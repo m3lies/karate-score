@@ -1,17 +1,31 @@
 <div class="timer-container">
-  <h2>Timer</h2>
-  <div class="timer-display">
-    {{ timerValue | timerFormat }}
-  </div>
-  <div class="timer-input">
-    <input type="number" [(ngModel)]="initialMinutes" placeholder="Minutes">
-    <input type="number" [(ngModel)]="initialSeconds" placeholder="Seconds">
-    <button (click)="updateTimer()">Set</button>
-  </div>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Timer</h5>
+      <div class="timer-display">
+        <h1> {{ timerValue | timerFormat }}</h1>
 
-  <div class="timer-controls">
-    <button (click)="startTimer()" [disabled]="isRunning">Start</button>
-    <button (click)="stopTimer()" [disabled]="!isRunning">Stop</button>
-    <button (click)="resetTimer()">Reset</button>
+      </div>
+      <div class="input-group mt-3">
+        <input type="number"
+               class="form-control"
+               placeholder="Minutes"
+               [(ngModel)]="initialMinutes"
+        >
+        <input type="number"
+               class="form-control"
+               placeholder="Seconds"
+               [(ngModel)]="initialSeconds"
+        >
+        <div class="input-group-append">
+          <button class="btn btn-success" (click)="updateTimer()">Set</button>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" (click)="startTimer()" [disabled]="isRunning">Start</button>
+      <button class="btn btn-danger" (click)="stopTimer()" [disabled]="!isRunning">Stop</button>
+      <button class="btn btn-warning" (click)="resetTimer()">Reset</button>
+
+    </div>
   </div>
 </div>

@@ -1,18 +1,19 @@
 <div class="penalties-container">
   <h3>Penalties</h3>
   <!-- Chui 1 -->
-  <button (click)="toggleChui1()" [class.clicked]="isChui1Clicked">Chui 1</button>
+  <button class="btn btn-outline-dark" (click)="toggleChui1()" [class.clicked]="isChui1Clicked">Chui 1</button>
 
   <!-- Chui 2 -->
-  <button (click)="toggleChui2()" [class.clicked]="isChui2Clicked">Chui 2</button>
+  <button class="btn btn-outline-dark" (click)="toggleChui2()" [class.clicked]="isChui2Clicked">Chui 2</button>
 
   <!-- Chui 3 -->
-  <button (click)="toggleChui3()" [class.clicked]="isChui3Clicked">Chui 3</button>
+  <button class="btn btn-outline-dark" (click)="toggleChui3()" [class.clicked]="isChui3Clicked">Chui 3</button>
 
   <!-- Hansoku Chui -->
-  <button (click)="toggleHansokuChui()" [class.clicked]="isHansokuChuiClicked">Hansoku Chui</button>
+  <button class="btn btn-outline-dark" (click)="toggleHansokuChui()" [class.clicked]="isHansokuChuiClicked">Hansoku Chui</button>
 
-  <button (click)="toggleHansoku()" [class.clicked]="isHansokuClicked">Hansoku Chui</button>
+  <button class="btn btn-outline-dark" (click)="toggleHansoku()" [class.clicked]="isHansokuClicked">Hansoku</button>
 
-  <button (click)="resetPenalties()">Reset Penalties</button>
 </div>
+
+<button class="btn btn-warning" (click)="resetPenalties()">Reset Penalties</button>

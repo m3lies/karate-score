@@ -1,55 +1,76 @@
-<div class="score-container">
-  <div class="score-column">
-    <h2 class="participant1">AKA: {{ totalScores[0] }}</h2>
-    <app-senshu></app-senshu>
-    <div class="score-display">
-      <p>Yuko: {{ scores[0].yuko }}</p>
-      <p>Waza-ari: {{ scores[0].wazaAri }}</p>
-      <p>Ippon: {{ scores[0].ippon }}</p>
+<div class="score-container container mt-4">
+  <div class="row justify-content-between">
+    <div class="col">
+      <div class="card">
+        <div class="card-header bg-danger text-white"><h1>{{ totalScores[0] }}</h1></div>
+        <div class="card-body">
+
+         <p>Yuko: {{ scores[0].yuko }}</p>
+          <p class="card-text">Waza-ari: {{ scores[0].wazaAri }}</p>
+           <p class="card-text">Ippon: {{ scores[0].ippon }}</p>
+
+          <div class="row justify-content-between">
+            <div class="col">
+              <button class="btn btn-success" (click)="addScore('yuko', 1)">+ Yuko</button>
+              <button class="btn btn-danger" (click)="removeScore('yuko', 1)">- Yuko</button>
+            </div>
+            <div class="col">
+              <button class="btn btn-success" (click)="addScore('wazaAri', 1)">+ Waza-ari</button>
+              <button class="btn btn-danger" (click)="removeScore('wazaAri', 1)">- Waza-ari</button>
+            </div>
+            <div class="col">
+              <button class="btn btn-success" (click)="addScore('ippon', 1)">+ Ippon</button>
+              <button class="btn btn-danger" (click)="removeScore('ippon', 1)">- Ippon</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <app-penalties #penalties1></app-penalties>
+          <app-senshu></app-senshu>
+        </div>
+
+
+      </div>
     </div>
-
-    <div class="score-controls">
-
-      <button (click)="addScore('yuko', 1)">Add Yuko</button>
-      <button (click)="addScore('wazaAri', 1)">Add Waza-ari</button>
-      <button (click)="addScore('ippon', 1)">Add Ippon</button>
-
-      <button (click)="removeScore('yuko', 1)">Remove Yuko</button>
-      <button (click)="removeScore('wazaAri', 1)">Remove Waza-ari</button>
-      <button (click)="removeScore('ippon', 1)">Remove Ippon</button>
-      <!-- Penalties -->
-      <app-penalties #penalties1></app-penalties>
+    <div class="col">
+      <div class="timer-column">
+        <div class="timer">
+          <app-timer></app-timer>
+        </div>
+      </div>
     </div>
+    <div class="col">
+      <div class="card">
+        <div class="card-header bg-primary text-white"><h1>{{ totalScores[1] }}</h1></div>
+        <div class="card-body">
+          <p class="card-text">Yuko: {{ scores[1].yuko }}</p>
+          <p class="card-text">Waza-ari: {{ scores[1].wazaAri }}</p>
+          <p class="card-text">Ippon: {{ scores[1].ippon }}</p>
+          <div class="row justify-content-between">
+            <div class="col">
+              <button class="btn btn-success" (click)="addScore('yuko', 2)">+ Yuko</button>
+              <button class="btn btn-danger" (click)="removeScore('yuko', 2)">- Yuko</button>
+            </div>
+            <div class="col">
+              <button class="btn btn-success" (click)="addScore('wazaAri', 2)">+ Waza-ari</button>
+              <button class="btn btn-danger" (click)="removeScore('wazaAri', 2)">- Waza-ari</button>
+            </div>
+            <div class="col">
+              <button class="btn btn-success" (click)="addScore('ippon', 2)">+ Ippon</button>
+              <button class="btn btn-danger" (click)="removeScore('ippon', 2)">- Ippon</button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <!-- Penalties -->
+          <app-penalties #penalties2></app-penalties>
+          <app-senshu></app-senshu>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-warning" (click)="resetScoreAndPenalties()">Reset score and penalties</button>
   </div>
-
-  <div class="timer-column">
-    <div class="timer">
-      <app-timer></app-timer>
-    </div>
-  </div>
-  <div class="score-column">
-    <h2 class="participant2">AO: {{ totalScores[1] }}</h2>
-    <app-senshu></app-senshu>
-    <div class="score-display">
-      <p>Yuko: {{ scores[1].yuko }}</p>
-      <p>Waza-ari: {{ scores[1].wazaAri }}</p>
-      <p>Ippon: {{ scores[1].ippon }}</p>
-    </div>
-
-    <div class="score-controls">
-      <button (click)="addScore('yuko', 2)">Add Yuko</button>
-      <button (click)="addScore('wazaAri', 2)">Add Waza-ari</button>
-      <button (click)="addScore('ippon', 2)">Add Ippon</button>
-
-      <button (click)="removeScore('yuko', 2)">Remove Yuko</button>
-      <button (click)="removeScore('wazaAri', 2)">Remove Waza-ari</button>
-      <button (click)="removeScore('ippon', 2)">Remove Ippon</button>
-    </div>
-
-
-    <!-- Penalties -->
-    <app-penalties #penalties2></app-penalties>
-
-  </div>
-  <button (click)="resetScoreAndPenalties()">Reset score and penalties</button>
 </div>
+

@@ -11,6 +11,7 @@ import { TimerReadonlyComponent } from './timer-readonly/timer-readonly.componen
 import { PenaltiesComponent } from './penalties/penalties.component';
 import {TimerFormatPipe} from "./timer-format.pipe";
 import { SenshuComponent } from './senshu/senshu.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
