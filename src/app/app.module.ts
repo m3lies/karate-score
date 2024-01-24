@@ -10,6 +10,7 @@ import { ScoreReadonlyComponent } from './score-readonly/score-readonly.componen
 import { TimerReadonlyComponent } from './timer-readonly/timer-readonly.component';
 import { PenaltiesComponent } from './penalties/penalties.component';
 import {TimerFormatPipe} from "./timer-format.pipe";
+import { SenshuComponent } from './senshu/senshu.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {TimerFormatPipe} from "./timer-format.pipe";
     ScoreComponent,
     ScoreReadonlyComponent,
     TimerReadonlyComponent,
-    PenaltiesComponent
+    PenaltiesComponent,
+    SenshuComponent
   ],
     imports: [
         BrowserModule,
