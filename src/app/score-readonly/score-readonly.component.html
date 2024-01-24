@@ -1,33 +1,62 @@
 <div class="container mt-4">
   <div class="row">
-    <div class="col-md-6 bg-danger text-white score">
-      <h1> AKA: {{ totalScores[0] }}</h1>
-
-      <div class="row" >
-        <!-- Display score elements without editing controls -->
-        <div class="col-md-4">Yuko {{ scores[0].yuko }}</div>
-        <div class="col-md-4">Waza-ari {{ scores[0].wazaAri }}</div>
-        <div class="col-md-4">Ippon {{ scores[0].ippon }}</div>
+    <!-- Participant 1 Score Display -->
+    <div class="col-md-6 bg-primary text-white text-center">
+      <div class="row justify-content-between">
+        <div class="col-md-auto">AO</div>
+        <div class="col-md-auto"> <h2 style="font-size: 36px;">{{ totalScores[0] }}</h2></div>
       </div>
+
       <div class="row">
-        <app-penalties-readonly></app-penalties-readonly>
+        <!-- Display score elements without editing controls -->
+        <div class="col-md-12">
+
+            <button class="btn btn-outline-light m-2 no-hover">Yuko {{ scores[0].yuko }}</button>
+            <button class="btn btn-outline-light m-2 no-hover">Waza-ari {{ scores[0].wazaAri }}</button>
+            <button class="btn btn-outline-light m-2 no-hover">Ippon {{ scores[0].ippon }}</button>
+        </div>
+      </div>
+
+
+
+
+
+
+      <div class="row">
+        <!-- Display penalties for Participant 1 -->
+        <div class="col-md-12">
+          <app-penalties-readonly></app-penalties-readonly>
+        </div>
       </div>
     </div>
 
-    <div class="col-md-6 bg-primary text-white">
-      <!-- Score Display for Participant 2 -->
-        <h1>AO: {{ totalScores[1] }}</h1>
-      <div class="row">
-        <!-- Display score elements without editing controls -->
-        <p class="col-md-4">Yuko: {{ scores[1].yuko }}</p>
-        <p class="col-md-4">Waza-ari: {{ scores[1].wazaAri }}</p>
-        <p class="col-md-4">Ippon: {{ scores[1].ippon }}</p>
-      </div>
-      <div class="row">
-        <app-penalties-readonly></app-penalties-readonly>
+    <!-- Participant 2 Score Display -->
+    <div class="col-md-6 bg-danger text-white text-center">
+      <div class="row justify-content-between">
+        <div class="col-md-auto"> <h2 style="font-size: 36px;">{{ totalScores[1] }}</h2></div>
+        <div class="col-md-auto">AKA</div>
+
       </div>
 
+      <div class="row">
+        <!-- Display score elements without editing controls -->
+        <div class="col-md-12">Yuko {{ scores[1].yuko }}</div>
+        <div class="col-md-12">Waza-ari {{ scores[1].wazaAri }}</div>
+        <div class="col-md-12">Ippon {{ scores[1].ippon }}</div>
+      </div>
+      <div class="row">
+        <!-- Display penalties for Participant 2 -->
+        <div class="col-md-12">
+          <app-penalties-readonly></app-penalties-readonly>
+        </div>
+      </div>
     </div>
-    <app-timer-readonly></app-timer-readonly>
+  </div>
+
+  <!-- Read-only Timer Display -->
+  <div class="row mt-4">
+    <div class="col-md-12 text-center">
+      <app-timer-readonly></app-timer-readonly>
+    </div>
   </div>
 </div>
