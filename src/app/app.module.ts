@@ -9,11 +9,13 @@ import { ScoreComponent } from './score/score.component';
 import { ScoreReadonlyComponent } from './score-readonly/score-readonly.component';
 import { TimerReadonlyComponent } from './timer-readonly/timer-readonly.component';
 import { PenaltiesComponent } from './penalties/penalties.component';
+import {TimerFormatPipe} from "./timer-format.pipe";
 
 @NgModule({
   declarations: [
     AppComponent,
     TimerComponent,
+    TimerFormatPipe,
     ScoreComponent,
     ScoreReadonlyComponent,
     TimerReadonlyComponent,

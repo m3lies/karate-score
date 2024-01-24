@@ -1,23 +1,47 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-timer',
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.scss'],
 })
-export class TimerComponent implements OnInit {
-  timeLeft = 300; // 5 minutes in seconds
-  timerId: any;
+export class TimerComponent {
+  @Input() initialMinutes: number = 0; // Initial minutes input
+  @Input() initialSeconds: number = 0; // Initial seconds input
+  timerValue: number = this.calculateTotalSeconds(); // Calculate total time in seconds
+  isRunning: boolean = false;
+  intervalId: any;
 
-  ngOnInit() {}
-
+  // Calculate total time in seconds
+  calculateTotalSeconds(): number {
+    return this.initialMinutes * 60 + this.initialSeconds;
+  }
   startTimer() {
-    this.timerId = setInterval(() => {
-      if (this.timeLeft > 0) {
-        this.timeLeft--;
-      } else {
-        clearInterval(this.timerId);
-      }
-    }, 1000);
+    if (!this.isRunning) {
+      this.isRunning = true;
+      this.intervalId = setInterval(() => {
+        if (this.timerValue > 0) {
+          this.timerValue--;
+        } else {
+          this.stopTimer();
+        }
+      }, 1000);
+    }
+  }
+
+  stopTimer() {
+    if (this.isRunning) {
+      this.isRunning = false;
+      clearInterval(this.intervalId);
+    }
+  }
+
+  resetTimer() {
+    this.stopTimer();
+    this.timerValue = this.calculateTotalSeconds();
+  }
+  updateTimer() {
+    this.timerValue = this.calculateTotalSeconds();
+    this.stopTimer();
   }
 }

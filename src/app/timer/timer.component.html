@@ -1,4 +1,17 @@
 <div class="timer-container">
-  <h2>Timer: {{ timeLeft | date: 'mm:ss' }}</h2>
-  <button (click)="startTimer()">Start</button>
+  <h2>Timer</h2>
+  <div class="timer-display">
+    {{ timerValue | timerFormat }}
+  </div>
+  <div class="timer-input">
+    <input type="number" [(ngModel)]="initialMinutes" placeholder="Minutes">
+    <input type="number" [(ngModel)]="initialSeconds" placeholder="Seconds">
+    <button (click)="updateTimer()">Set</button>
+  </div>
+
+  <div class="timer-controls">
+    <button (click)="startTimer()" [disabled]="isRunning">Start</button>
+    <button (click)="stopTimer()" [disabled]="!isRunning">Stop</button>
+    <button (click)="resetTimer()">Reset</button>
+  </div>
 </div>
