@@ -1,15 +1,15 @@
 <div class="score-container">
-    <div class="score-column">
-        <h2 class="participant1">AKA: {{ participant1Score }}</h2>
-      <div class="score-display">
-        <p>Yuko: {{ scores[0].yuko }}</p>
-        <p>Waza-ari: {{ scores[0].wazaAri }}</p>
-        <p>Ippon: {{ scores[0].ippon }}</p>
-      </div>
-        <div class="score-icons">
-            <div *ngFor="let _ of generateArray(participant1SenshuCount)" class="senshu-circle"></div>
-        </div>
-        <button (click)="addSenshu(1)">Senshu</button>
+  <div class="score-column">
+    <h2 class="participant1">AKA: {{ totalScores[0] }}</h2>
+    <app-senshu></app-senshu>
+    <div class="score-display">
+      <p>Yuko: {{ scores[0].yuko }}</p>
+      <p>Waza-ari: {{ scores[0].wazaAri }}</p>
+      <p>Ippon: {{ scores[0].ippon }}</p>
+    </div>
+
+    <div class="score-controls">
+
       <button (click)="addScore('yuko', 1)">Add Yuko</button>
       <button (click)="addScore('wazaAri', 1)">Add Waza-ari</button>
       <button (click)="addScore('ippon', 1)">Add Ippon</button>
@@ -17,42 +17,39 @@
       <button (click)="removeScore('yuko', 1)">Remove Yuko</button>
       <button (click)="removeScore('wazaAri', 1)">Remove Waza-ari</button>
       <button (click)="removeScore('ippon', 1)">Remove Ippon</button>
-        <!-- Penalties -->
-        <app-penalties [participantNumber]="1"></app-penalties>
+      <!-- Penalties -->
+      <app-penalties></app-penalties>
+    </div>
+  </div>
 
+  <div class="timer-column">
+    <div class="timer">
+      <app-timer></app-timer>
+    </div>
+  </div>
+  <div class="score-column">
+    <h2 class="participant2">AO: {{ totalScores[1] }}</h2>
+    <app-senshu></app-senshu>
+    <div class="score-display">
+      <p>Yuko: {{ scores[1].yuko }}</p>
+      <p>Waza-ari: {{ scores[1].wazaAri }}</p>
+      <p>Ippon: {{ scores[1].ippon }}</p>
     </div>
 
-    <div class="timer-column">
-        <div class="timer">
-            <app-timer></app-timer>
-        </div>
-    </div>
-    <div class="score-column">
-        <h2 class="participant2">AO: {{ participant2Score }}</h2>
-      <div class="score-display">
-        <p>Yuko: {{ scores[1].yuko }}</p>
-        <p>Waza-ari: {{ scores[1].wazaAri }}</p>
-        <p>Ippon: {{ scores[1].ippon }}</p>
-      </div>
-        <div class="score-icons">
-            <div *ngFor="let _ of generateArray(participant2SenshuCount)" class="senshu-circle"></div>
-        </div>
-      <!-- Participant 1 Score Controls -->
-      <div class="score-controls">
-        <button (click)="addScore('yuko', 2)">Add Yuko</button>
-        <button (click)="addScore('wazaAri', 2)">Add Waza-ari</button>
-        <button (click)="addScore('ippon', 2)">Add Ippon</button>
+    <div class="score-controls">
+      <button (click)="addScore('yuko', 2)">Add Yuko</button>
+      <button (click)="addScore('wazaAri', 2)">Add Waza-ari</button>
+      <button (click)="addScore('ippon', 2)">Add Ippon</button>
 
-        <button (click)="removeScore('yuko', 2)">Remove Yuko</button>
-        <button (click)="removeScore('wazaAri', 2)">Remove Waza-ari</button>
-        <button (click)="removeScore('ippon', 2)">Remove Ippon</button>
-      </div>
-
-        <button (click)="addSenshu(2)">Senshu</button>
-
-        <!-- Penalties -->
-        <app-penalties [participantNumber]="2"></app-penalties>
-
+      <button (click)="removeScore('yuko', 2)">Remove Yuko</button>
+      <button (click)="removeScore('wazaAri', 2)">Remove Waza-ari</button>
+      <button (click)="removeScore('ippon', 2)">Remove Ippon</button>
     </div>
 
+
+    <!-- Penalties -->
+    <app-penalties></app-penalties>
+
+  </div>
+  <button (click)="resetScoreAndPenalties()">Reset score and penalties</button>
 </div>
