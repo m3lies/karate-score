@@ -6,20 +6,18 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./timer.component.scss'],
 })
 export class TimerComponent {
-  @Input() initialMinutes: number = 0; // Initial minutes input
-  @Input() initialSeconds: number = 0; // Initial seconds input
-  timerValue: number = this.calculateTotalSeconds(); // Calculate total time in seconds
+  @Input() initialMinutes: number = 0;
+  @Input() initialSeconds: number = 0;
+  timerValue: number = this.calculateTotalSeconds();
   isRunning: boolean = false;
   intervalId: any;
+  isLast15Seconds: boolean = false; // Add this property
 
-  // Calculate total time in seconds
   calculateTotalSeconds(): number {
     return this.initialMinutes * 60 + this.initialSeconds;
   }
 
-  // Inside your TimerComponent class
   onInputSecondsChange() {
-    // Ensure the seconds value is within the valid range (0-59)
     if (this.initialSeconds < 0) {
       this.initialSeconds = 0;
     } else if (this.initialSeconds > 59) {
@@ -33,6 +31,7 @@ export class TimerComponent {
       this.intervalId = setInterval(() => {
         if (this.timerValue > 0) {
           this.timerValue--;
+          this.isLast15Seconds = this.timerValue <= 15; // Check if timer is in last 15 seconds
         } else {
           this.stopTimer();
         }
@@ -50,13 +49,12 @@ export class TimerComponent {
   resetTimer() {
     this.stopTimer();
     this.timerValue = this.calculateTotalSeconds();
+    this.isLast15Seconds = false; // Reset the last 15 seconds flag
   }
 
-  // New method to update the timer when input values change
   updateTimer() {
     this.timerValue = this.calculateTotalSeconds();
     this.stopTimer();
+    this.isLast15Seconds = false; // Reset the last 15 seconds flag
   }
-
-
 }

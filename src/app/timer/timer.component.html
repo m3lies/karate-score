@@ -4,11 +4,10 @@
       <h5 class="card-title">Timer</h5>
 
       <!-- Timer Display -->
-      <div class="timer-display">
+      <div class="timer-display" [ngClass]="{'last-15-seconds': isLast15Seconds}">
         <h1>{{ timerValue | timerFormat }}</h1>
       </div>
 
-      <!-- Set Timer Input -->
       <!-- Set Timer Input -->
       <div class="input-group mt-3">
         <!-- Minutes Input -->
