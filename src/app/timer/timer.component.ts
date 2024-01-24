@@ -27,8 +27,6 @@ export class TimerComponent {
     }
   }
 
-
-
   startTimer() {
     if (!this.isRunning) {
       this.isRunning = true;
@@ -53,8 +51,12 @@ export class TimerComponent {
     this.stopTimer();
     this.timerValue = this.calculateTotalSeconds();
   }
+
+  // New method to update the timer when input values change
   updateTimer() {
     this.timerValue = this.calculateTotalSeconds();
     this.stopTimer();
   }
+
+
 }

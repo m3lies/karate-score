@@ -11,7 +11,7 @@ import {TimerComponent} from "../timer/timer.component";
 export class ScoreComponent {
   @ViewChild("penalties1") penaltiesComponent1!: PenaltiesComponent;
   @ViewChild("penalties2") penaltiesComponent2!: PenaltiesComponent;
-  @ViewChild("timer") timerComponent!: TimerComponent;
+  @ViewChild(TimerComponent) timerComponent!: TimerComponent;
 
   constructor(private router: Router) {}
   totalScores: number[] = [0, 0];
