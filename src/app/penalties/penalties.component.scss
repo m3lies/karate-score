@@ -1,9 +1,16 @@
 button {
-  background-color: #ff0000; /* Red background for penalty buttons */
-  color: #fff;
+  background-color: white; /* Red background for penalty buttons */
+  color: black;
   border: none;
   padding: 5px 10px;
   margin: 5px;
   cursor: pointer;
   font-size: 16px;
+}
+
+/* penalties.component.css */
+.clicked {
+  background-color: black; /* Set the desired background color for clicked penalties */
+  color: white; /* Set the text color */
+  /* Add any additional styles as needed */
 }
