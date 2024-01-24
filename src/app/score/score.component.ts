@@ -1,5 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {PenaltiesComponent} from "../penalties/penalties.component";
+import {Router} from "@angular/router";
+import {TimerComponent} from "../timer/timer.component";
 
 @Component({
   selector: 'app-score',
@@ -9,13 +11,24 @@ import {PenaltiesComponent} from "../penalties/penalties.component";
 export class ScoreComponent {
   @ViewChild("penalties1") penaltiesComponent1!: PenaltiesComponent;
   @ViewChild("penalties2") penaltiesComponent2!: PenaltiesComponent;
+  @ViewChild("timer") timerComponent!: TimerComponent;
 
+  constructor(private router: Router) {}
   totalScores: number[] = [0, 0];
+
   scores: { yuko: number, wazaAri: number, ippon: number }[] = [
     {yuko: 0, wazaAri: 0, ippon: 0}, // Participant 1 scores
     {yuko: 0, wazaAri: 0, ippon: 0}, // Participant 2 scores
   ];
 
+  navigateToScoreReadonly() {
+    // Convert data to URL-friendly format
+    const totalScoresParam = this.totalScores.join(',');
+    const scoresParam = JSON.stringify(this.scores);
+
+    // Navigate to ScoreReadonlyComponent route with data
+    this.router.navigate(['/score-readonly', totalScoresParam, scoresParam]);
+  }
 
   // Inside your component
   addScore(scoreType: string, participantNumber: number) {
@@ -59,10 +72,11 @@ export class ScoreComponent {
     this.calculateTotalScores(1);
     this.calculateTotalScores(2);
   }
-  resetScoreAndPenalties(){
+  resetScoreTimerAndPenalties(){
     this.penaltiesComponent1.resetPenalties();
     this.penaltiesComponent2.resetPenalties();
     this.resetScore();
+    this.timerComponent.resetTimer();
 
   }
 

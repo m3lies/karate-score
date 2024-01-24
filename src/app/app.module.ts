@@ -12,6 +12,7 @@ import { PenaltiesComponent } from './penalties/penalties.component';
 import {TimerFormatPipe} from "./timer-format.pipe";
 import { SenshuComponent } from './senshu/senshu.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {PenaltiesReadonlyComponent} from "./penalties-readonly/penalties-readonly.component";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     imports: [
         BrowserModule,
         AppRoutingModule,
-        FormsModule
+        FormsModule,
+        PenaltiesReadonlyComponent
     ],
   providers: [],
   bootstrap: [AppComponent]

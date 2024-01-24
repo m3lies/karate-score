@@ -1,76 +1,80 @@
 <div class="score-container container mt-4">
-  <div class="row justify-content-between">
-    <div class="col">
+  <div class="row">
+    <!-- Participant 1 -->
+    <div class="col-md-4">
       <div class="card">
-        <div class="card-header bg-danger text-white"><h1>{{ totalScores[0] }}</h1></div>
+        <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+          <h1>{{ totalScores[0] }}</h1>
+          <div class="text-center">
+            <app-senshu></app-senshu>
+          </div>
+        </div>
         <div class="card-body">
-
-         <p>Yuko: {{ scores[0].yuko }}</p>
+          <p>Yuko: {{ scores[0].yuko }}</p>
           <p class="card-text">Waza-ari: {{ scores[0].wazaAri }}</p>
-           <p class="card-text">Ippon: {{ scores[0].ippon }}</p>
-
-          <div class="row justify-content-between">
-            <div class="col">
-              <button class="btn btn-success" (click)="addScore('yuko', 1)">+ Yuko</button>
-              <button class="btn btn-danger" (click)="removeScore('yuko', 1)">- Yuko</button>
-            </div>
-            <div class="col">
-              <button class="btn btn-success" (click)="addScore('wazaAri', 1)">+ Waza-ari</button>
-              <button class="btn btn-danger" (click)="removeScore('wazaAri', 1)">- Waza-ari</button>
-            </div>
-            <div class="col">
-              <button class="btn btn-success" (click)="addScore('ippon', 1)">+ Ippon</button>
-              <button class="btn btn-danger" (click)="removeScore('ippon', 1)">- Ippon</button>
-            </div>
+          <p class="card-text">Ippon: {{ scores[0].ippon }}</p>
+          <div class="btn-group mt-2" role="group">
+            <button class="btn btn-success" (click)="addScore('yuko', 1)">+ Yuko</button>
+            <button class="btn btn-danger" (click)="removeScore('yuko', 1)">- Yuko</button>
+          </div>
+          <div class="btn-group mt-2" role="group">
+            <button class="btn btn-success" (click)="addScore('wazaAri', 1)">+ Waza-ari</button>
+            <button class="btn btn-danger" (click)="removeScore('wazaAri', 1)">- Waza-ari</button>
+          </div>
+          <div class="btn-group mt-2" role="group">
+            <button class="btn btn-success" (click)="addScore('ippon', 1)">+ Ippon</button>
+            <button class="btn btn-danger" (click)="removeScore('ippon', 1)">- Ippon</button>
           </div>
         </div>
         <div class="card-footer">
           <app-penalties #penalties1></app-penalties>
-          <app-senshu></app-senshu>
         </div>
-
-
       </div>
     </div>
-    <div class="col">
+
+    <!-- Timer -->
+    <div class="col-md-4">
       <div class="timer-column">
         <div class="timer">
           <app-timer></app-timer>
         </div>
+        <!-- Align the button with app-timer -->
+        <div class="d-flex justify-content-center mt-3">
+          <button class="btn btn-warning" (click)="resetScoreTimerAndPenalties()">Reset Score, Timer, and Penalties</button>
+        </div>
       </div>
     </div>
-    <div class="col">
+
+    <!-- Participant 2 -->
+    <div class="col-md-4">
       <div class="card">
-        <div class="card-header bg-primary text-white"><h1>{{ totalScores[1] }}</h1></div>
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+          <h1>{{ totalScores[1] }}</h1>
+          <div class="text-center">
+            <app-senshu></app-senshu>
+          </div>
+        </div>
         <div class="card-body">
           <p class="card-text">Yuko: {{ scores[1].yuko }}</p>
           <p class="card-text">Waza-ari: {{ scores[1].wazaAri }}</p>
           <p class="card-text">Ippon: {{ scores[1].ippon }}</p>
-          <div class="row justify-content-between">
-            <div class="col">
-              <button class="btn btn-success" (click)="addScore('yuko', 2)">+ Yuko</button>
-              <button class="btn btn-danger" (click)="removeScore('yuko', 2)">- Yuko</button>
-            </div>
-            <div class="col">
-              <button class="btn btn-success" (click)="addScore('wazaAri', 2)">+ Waza-ari</button>
-              <button class="btn btn-danger" (click)="removeScore('wazaAri', 2)">- Waza-ari</button>
-            </div>
-            <div class="col">
-              <button class="btn btn-success" (click)="addScore('ippon', 2)">+ Ippon</button>
-              <button class="btn btn-danger" (click)="removeScore('ippon', 2)">- Ippon</button>
-            </div>
-
+          <div class="btn-group mt-2" role="group"> <!-- Added mt-2 for top margin -->
+            <button class="btn btn-success" (click)="addScore('yuko', 2)">+ Yuko</button>
+            <button class="btn btn-danger" (click)="removeScore('yuko', 2)">- Yuko</button>
+          </div>
+          <div class="btn-group mt-2" role="group"> <!-- Added mt-2 for top margin -->
+            <button class="btn btn-success" (click)="addScore('wazaAri', 2)">+ Waza-ari</button>
+            <button class="btn btn-danger" (click)="removeScore('wazaAri', 2)">- Waza-ari</button>
+          </div>
+          <div class="btn-group mt-2" role="group"> <!-- Added mt-2 for top margin -->
+            <button class="btn btn-success" (click)="addScore('ippon', 2)">+ Ippon</button>
+            <button class="btn btn-danger" (click)="removeScore('ippon', 2)">- Ippon</button>
           </div>
         </div>
-
         <div class="card-footer">
-          <!-- Penalties -->
           <app-penalties #penalties2></app-penalties>
-          <app-senshu></app-senshu>
         </div>
       </div>
     </div>
-    <button class="btn btn-warning" (click)="resetScoreAndPenalties()">Reset score and penalties</button>
   </div>
 </div>
-

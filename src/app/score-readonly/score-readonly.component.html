@@ -1,6 +1,33 @@
-<div class="score-container">
-  <h2>Participant 1 Score: {{ participant1Score }}</h2>
-</div>
-<div class="score-container">
-  <h2>Participant 2 Score: {{ participant2Score }}</h2>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6 bg-danger text-white score">
+      <h1> AKA: {{ totalScores[0] }}</h1>
+
+      <div class="row" >
+        <!-- Display score elements without editing controls -->
+        <div class="col-md-4">Yuko {{ scores[0].yuko }}</div>
+        <div class="col-md-4">Waza-ari {{ scores[0].wazaAri }}</div>
+        <div class="col-md-4">Ippon {{ scores[0].ippon }}</div>
+      </div>
+      <div class="row">
+        <app-penalties-readonly></app-penalties-readonly>
+      </div>
+    </div>
+
+    <div class="col-md-6 bg-primary text-white">
+      <!-- Score Display for Participant 2 -->
+        <h1>AO: {{ totalScores[1] }}</h1>
+      <div class="row">
+        <!-- Display score elements without editing controls -->
+        <p class="col-md-4">Yuko: {{ scores[1].yuko }}</p>
+        <p class="col-md-4">Waza-ari: {{ scores[1].wazaAri }}</p>
+        <p class="col-md-4">Ippon: {{ scores[1].ippon }}</p>
+      </div>
+      <div class="row">
+        <app-penalties-readonly></app-penalties-readonly>
+      </div>
+
+    </div>
+    <app-timer-readonly></app-timer-readonly>
+  </div>
 </div>

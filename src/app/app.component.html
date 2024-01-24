@@ -5,9 +5,11 @@
   crossorigin="anonymous"
 />
 <div class="app-container">
-  <!-- Editable Score Component -->
-  <app-score></app-score>
-
-  <!-- Read-Only Score Component -->
-
+  <nav>
+    <ul>
+      <li><a routerLink="/score">Score Component</a></li>
+      <li><a routerLink="/score-readonly">Score Readonly Component</a></li>
+    </ul>
+  </nav>
+  <router-outlet></router-outlet>
 </div>
