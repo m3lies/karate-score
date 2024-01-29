@@ -1,17 +1,17 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 import {FormsModule} from "@angular/forms";
-import { TimerComponent } from './timer/timer.component';
-import { ScoreComponent } from './score/score.component';
-import { ScoreReadonlyComponent } from './score-readonly/score-readonly.component';
-import { TimerReadonlyComponent } from './timer-readonly/timer-readonly.component';
-import { PenaltiesComponent } from './penalties/penalties.component';
+import {TimerComponent} from './timer/timer.component';
+import {ScoreComponent} from './score/score.component';
+import {ScoreReadonlyComponent} from './score-readonly/score-readonly.component';
+import {TimerReadonlyComponent} from './timer-readonly/timer-readonly.component';
+import {PenaltiesComponent} from './penalties/penalties.component';
 import {TimerFormatPipe} from "./timer-format.pipe";
-import { SenshuComponent } from './senshu/senshu.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {SenshuComponent} from './senshu/senshu.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {PenaltiesReadonlyComponent} from "./penalties-readonly/penalties-readonly.component";
 
 @NgModule({
@@ -25,13 +25,14 @@ import {PenaltiesReadonlyComponent} from "./penalties-readonly/penalties-readonl
     PenaltiesComponent,
     SenshuComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        PenaltiesReadonlyComponent
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    PenaltiesReadonlyComponent
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
