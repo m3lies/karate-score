@@ -1,18 +1,5 @@
-/* score-readonly.component.css */
-
-:host {
-  display: block;
-}
-
 .score-readonly-container {
-  background-color: rgba(0, 0, 0, 0.5);
-  width: 100%;
-}
-
-.participant-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  position: relative;
 }
 
 .timer-overlay {
@@ -21,4 +8,17 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
+}
+
+.participants-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.participant {
+  width: 48%; /* Adjust as needed */
+}
+
+.score-buttons button {
+  width: 100%;
 }
