@@ -4,7 +4,7 @@
       <h5 class="card-title">Timer</h5>
 
       <!-- Timer Display -->
-      <div class="timer-display" [ngClass]="{'last-15-seconds': isLast15Seconds}">
+      <div class="timer-display" [ngClass]="{'last-15-seconds': isLast15Seconds, 'stopped': !isRunning}">
         <h1>{{ timerValue | timerFormat }}</h1>
       </div>
 
