@@ -4,7 +4,13 @@ import {ActivatedRoute} from "@angular/router";
 @Component({
   selector: 'app-score-readonly',
   templateUrl: './score-readonly.component.html',
-  styleUrls: ['./score-readonly.component.scss'],
+  styles: [`
+    :host {
+      display: block;
+      width: 100%;
+      height: 100vh;
+    }
+  `],
 })
 export class ScoreReadonlyComponent implements OnInit {
 

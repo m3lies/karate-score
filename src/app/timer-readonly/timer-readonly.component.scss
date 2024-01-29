@@ -1,7 +1,8 @@
 .timer {
-  width: 50%;
-  height: 100px;
-  background-color: #eee;
+  background-color: rgba(0, 0, 0, 0.5);
   text-align: center;
-  margin: 0 auto;
+  margin: 0; /* Adjust margin as needed */
+  padding: 10px; /* Adjust padding as needed */
+  border-radius: 8px; /* Optional: Add border-radius for rounded corners */
+  color: white; /* Optional: Adjust text color */
 }

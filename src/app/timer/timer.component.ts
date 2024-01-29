@@ -12,6 +12,7 @@ export class TimerComponent {
   isRunning: boolean = false;
   intervalId: any;
   isLast15Seconds: boolean = false; // Add this property
+  audio = new Audio('assets/sound-file.mp3');
 
   calculateTotalSeconds(): number {
     return this.initialMinutes * 60 + this.initialSeconds;
@@ -31,13 +32,24 @@ export class TimerComponent {
       this.intervalId = setInterval(() => {
         if (this.timerValue > 0) {
           this.timerValue--;
-          this.isLast15Seconds = this.timerValue <= 15; // Check if timer is in last 15 seconds
         } else {
           this.stopTimer();
+          // Play the sound when the timer reaches zero
+          const playPromise = this.audio.play();
+
+          if (playPromise !== undefined) {
+            playPromise.then(_ => {
+              // Autoplay started successfully
+            }).catch(error => {
+              // Autoplay was prevented
+              console.error('Error playing audio:', error);
+            });
+          }
         }
       }, 1000);
     }
   }
+
 
   stopTimer() {
     if (this.isRunning) {
