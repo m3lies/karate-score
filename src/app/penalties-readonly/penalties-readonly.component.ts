@@ -2,8 +2,6 @@ import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-penalties-readonly',
-  standalone: true,
-  imports: [],
   templateUrl: './penalties-readonly.component.html',
   styleUrl: './penalties-readonly.component.scss'
 })

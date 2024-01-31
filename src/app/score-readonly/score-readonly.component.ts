@@ -1,45 +1,41 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { DataService } from '../data.service';
-import { Observable } from 'rxjs';
+import {Component, OnInit, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy} from '@angular/core';
+import { SharedDataService } from '../shared-data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-score-readonly',
   templateUrl: './score-readonly.component.html',
   styleUrls: ['./score-readonly.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ScoreReadonlyComponent implements OnInit {
-  totalScores$: Observable<number[]>;
-  scores$: Observable<{ yuko: number; wazaAri: number; ippon: number }[]>;
+export class ScoreReadOnlyComponent implements OnInit, OnDestroy {
+  totalScores: number[] = [0, 0];
+  scores: { yuko: number; wazaAri: number; ippon: number }[] = [
+    { yuko: 0, wazaAri: 0, ippon: 0 }, // Participant 1 scores
+    { yuko: 0, wazaAri: 0, ippon: 0 }, // Participant 2 scores
+  ];
 
-  constructor(
-    private route: ActivatedRoute,
-    private dataService: DataService
-  ) {
-    this.totalScores$ = new Observable<number[]>();
-    this.scores$ = new Observable<{ yuko: number; wazaAri: number; ippon: number }[]>();
-  }
+  private totalScoresSubscription: Subscription | undefined;
+  private scoresSubscription: Subscription | undefined;
+
+  constructor(private sharedDataService: SharedDataService,     private changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit() {
-    // Use paramMap to retrieve query parameters
-    this.route.queryParamMap.subscribe((paramMap) => {
-      const totalScoresParam = paramMap.get('totalScores');
-      const scoresParam = paramMap.get('scores');
+    // Subscribe to the observables to get the values from SharedDataService
+    this.totalScoresSubscription = this.sharedDataService.totalScores$.subscribe((totalScores) => {
+      this.totalScores = totalScores;
+      console.log('Total Scores updated in readonly:', totalScores);
+    });
 
-      // Check if the parameters exist before using them
-      if (totalScoresParam && scoresParam) {
-        // Convert the URL params back to the appropriate format
-        const totalScores = totalScoresParam.split(',').map(Number);
-        const scores = JSON.parse(scoresParam);
-
-        // Use the DataService to set the retrieved data
-        this.dataService.setTotalScores(totalScores);
-        this.dataService.setScores(scores);
-      } else {
-        // Handle the case where parameters are missing or undefined
-        console.error('Parameters are missing or undefined.');
-      }
+    this.scoresSubscription = this.sharedDataService.scores$.subscribe((scores) => {
+      this.scores = scores;
+      console.log('Scores updated in readonly:', scores);
     });
   }
+  ngOnDestroy() {
+    // Unsubscribe to prevent further updates
+    this.totalScoresSubscription?.unsubscribe();
+    this.scoresSubscription?.unsubscribe();
+  }
+
 }
