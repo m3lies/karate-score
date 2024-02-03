@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import {BehaviorSubject} from "rxjs";
 
 @Component({
   selector: 'app-timer',
@@ -14,9 +15,13 @@ export class TimerComponent {
   isLast15Seconds: boolean = false; // Add this property
   audio = new Audio('assets/bip-end.mp3');
   audio15Seconds = new Audio('assets/15bip.mp3');
+  private timerState = new BehaviorSubject<number>(this.timerValue);
+  timerState$ = this.timerState.asObservable(); // Public Observable for other components to subscribe to
+
 
   calculateTotalSeconds(): number {
     return this.initialMinutes * 60 + this.initialSeconds;
+
   }
 
   onInputSecondsChange() {
@@ -68,6 +73,7 @@ export class TimerComponent {
         }
       }, 1000);
     }
+    this.timerState.next(this.timerValue);
   }
 
 
@@ -76,17 +82,20 @@ export class TimerComponent {
       this.isRunning = false;
       clearInterval(this.intervalId);
     }
+    this.timerState.next(this.timerValue);
   }
 
   resetTimer() {
     this.stopTimer();
     this.timerValue = this.calculateTotalSeconds();
     this.isLast15Seconds = false; // Reset the last 15 seconds flag
+    this.timerState.next(this.timerValue);
   }
 
   updateTimer() {
     this.timerValue = this.calculateTotalSeconds();
     this.stopTimer();
     this.isLast15Seconds = false; // Reset the last 15 seconds flag
+    this.timerState.next(this.timerValue);
   }
 }

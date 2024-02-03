@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { Subscription } from 'rxjs';
+import {Subscription, take} from 'rxjs';
 import { PenaltiesComponent } from '../penalties/penalties.component';
 import { TimerComponent } from '../timer/timer.component';
 import { SharedDataService } from '../shared-data.service';
@@ -22,7 +22,7 @@ export class ScoreComponent implements OnInit, OnDestroy {
 
   private totalScoresSubscription: Subscription | undefined;
   private scoresSubscription: Subscription | undefined;
-
+  private timerUpdateSubscription: Subscription | undefined;
   constructor(
     private sharedDataService: SharedDataService,
     private changeDetectorRef: ChangeDetectorRef
@@ -68,23 +68,53 @@ export class ScoreComponent implements OnInit, OnDestroy {
   }
 
   scoreReadonlyWindow: Window | null = null;
+// In ScoreComponent
   openScoreReadonlyInNewWindow() {
-    // Check if the window is already open
-    if (!this.scoreReadonlyWindow || this.scoreReadonlyWindow.closed) {
-      // Define window features for a full-screen, borderless window
-      const windowFeatures = 'toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=800,height=600,left=0,top=0';
+    const windowFeatures = 'toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=800,height=600,left=0,top=0';
 
-      // Open the ScoreReadOnlyComponent in a new borderless, full-screen window
-      this.scoreReadonlyWindow = window.open('/score-readonly', '_blank', windowFeatures);
+    // Attempt to open the new window
+    this.scoreReadonlyWindow = window.open('/score-readonly', '_blank', windowFeatures);
 
-      // Check if the new window was successfully opened
-      if (this.scoreReadonlyWindow) {
-        this.scoreReadonlyWindow.moveTo(0, 0); // Move the window to the top-left corner
-      }
+    // Check if the window opened successfully
+    if (this.scoreReadonlyWindow) {
+      this.scoreReadonlyWindow.onload = () => {
+        this.postScoresToReadOnlyWindow(); // Post initial scores
+      };
+
+      // Setup subscriptions to post updates whenever scores change
+      this.totalScoresSubscription = this.sharedDataService.totalScores$.subscribe(() => {
+        this.postScoresToReadOnlyWindow(); // Post updated scores
+      });
+
+      this.scoresSubscription = this.sharedDataService.scores$.subscribe(() => {
+        this.postScoresToReadOnlyWindow(); // Post updated scores
+      });
     } else {
-      // If the window is already open, focus on it
-      this.scoreReadonlyWindow.focus();
+      console.error("Failed to open the new window. Check if popup blockers are enabled.");
     }
   }
+
+  postScoresToReadOnlyWindow() {
+    if (this.scoreReadonlyWindow && !this.scoreReadonlyWindow.closed) {
+      const totalScoresPromise = this.sharedDataService.totalScores$.pipe(take(1)).toPromise();
+      const scoresPromise = this.sharedDataService.scores$.pipe(take(1)).toPromise();
+      // Subscribe to timer updates and post to readonly window
+      this.timerComponent.timerState$.subscribe(timerValue => {
+        if (this.scoreReadonlyWindow && !this.scoreReadonlyWindow.closed) {
+          this.scoreReadonlyWindow.postMessage({ type: 'timerUpdate', data: timerValue }, '*');
+        }
+      });
+
+      Promise.all([totalScoresPromise, scoresPromise]).then(([totalScores, scores]) => {
+        const data = { totalScores, scores };
+        // Now we're sure this.scoreReadonlyWindow is not null and not closed
+        this.scoreReadonlyWindow?.postMessage(data, '*'); // Ensure to use a more specific target origin in production environments
+      });
+    } else {
+      console.log("Readonly window is not open.");
+    }
+  }
+
+
 
 }

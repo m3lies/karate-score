@@ -14,27 +14,35 @@ export class ScoreReadOnlyComponent implements OnInit {
     {yuko: 0, wazaAri: 0, ippon: 0}, // Participant 1 scores
     {yuko: 0, wazaAri: 0, ippon: 0}, // Participant 2 scores
   ];
-
+  timeLeft: number = 0;
   private totalScoresSubscription: Subscription | undefined;
   private scoresSubscription: Subscription | undefined;
 
   constructor(private sharedDataService: SharedDataService, private changeDetectorRef: ChangeDetectorRef) {
   }
-
   ngOnInit() {
-    // Subscribe to the observables to get the values from SharedDataService
-    this.totalScoresSubscription = this.sharedDataService.totalScores$.subscribe((totalScores) => {
-      this.changeDetectorRef.detectChanges()
-      this.totalScores = totalScores;
-      console.log('Total Scores updated in readonly:', totalScores);
-    });
-
-    this.scoresSubscription = this.sharedDataService.scores$.subscribe((scores) => {
-      this.changeDetectorRef.detectChanges()
-      this.scores = scores;
-      console.log('Scores updated in readonly:', scores);
-    });
+    window.addEventListener('message', this.handleMessage.bind(this), false);
   }
 
+  ngOnDestroy() {
+    window.removeEventListener('message', this.handleMessage.bind(this), false);
+  }
+
+  private handleMessage(event: MessageEvent) {
+    // Validate the origin if known, to enhance security
+    // if (event.origin !== "YOUR_EXPECTED_ORIGIN") return;
+    console.log("Received message:", event.data);
+    const { totalScores, scores } = event.data;
+    this.totalScores = totalScores;
+    this.scores = scores;
+    if (event.data.type === 'totalScoresUpdate' && event.data.data) {
+      this.totalScores = event.data.data;
+      this.changeDetectorRef.detectChanges();
+    } else if (event.data.type === 'timerUpdate' && event.data.data !== undefined) {
+      // Handle timer update
+      this.changeDetectorRef.detectChanges();
+    }
+    this.changeDetectorRef.detectChanges(); // Trigger change detection to update the view
+  }
 
 }

@@ -13,6 +13,7 @@ import {TimerFormatPipe} from "./timer-format.pipe";
 import {SenshuComponent} from './senshu/senshu.component';
 import {PenaltiesReadonlyComponent} from "./penalties-readonly/penalties-readonly.component";
 import {ScoreReadOnlyComponent} from "./score-readonly/score-readonly.component";
+import {SharedDataService} from "./shared-data.service";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import {ScoreReadOnlyComponent} from "./score-readonly/score-readonly.component"
     FormsModule
 
   ],
-  providers: [],
+  providers: [SharedDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
