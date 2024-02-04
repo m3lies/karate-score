@@ -4,7 +4,7 @@
     <div class="col-md-6 bg-primary text-white text-center">
       <div class="row justify-content-between">
         <div class="col-md-auto">AO</div>
-        <div class="col-md-auto"><h2 style="font-size: 36px;">{{ totalScores[0] }}</h2></div>
+        <div class="col-md-auto"><h2 style="font-size: 36px;">{{ totalScores[0] }} <app-senshu-readonly #senshu1 [isSenshu]="senshu1.isSenshu"></app-senshu-readonly> </h2></div>
       </div>
       <div class="row">
         <!-- Display score elements without editing controls -->
@@ -37,7 +37,7 @@
     <!-- Participant 2 Score Display -->
     <div class="col-md-6 bg-danger text-white text-center">
       <div class="row justify-content-between">
-        <div class="col-md-auto"><h2 style="font-size: 36px;">{{ totalScores[1] }}</h2></div>
+        <div class="col-md-auto"><h2 style="font-size: 36px;">{{ totalScores[1] }}  <app-senshu-readonly #senshu2 [isSenshu]="senshu2.isSenshu"></app-senshu-readonly></h2></div>
         <div class="col-md-auto">AKA</div>
       </div>
       <div class="row">

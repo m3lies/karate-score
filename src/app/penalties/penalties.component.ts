@@ -34,14 +34,12 @@ export class PenaltiesComponent {
 
   toggleChui1() {
     this.ngZone.run(() => {
-      console.log('Toggle Chui1 called');
       this.isChui1Clicked = !this.isChui1Clicked;
       this.updateAndBroadcastPenalties();
     });
   }
 
   toggleChui2() {
-    console.log('Toggle Chui2 called');
     this.isChui2Clicked = !this.isChui2Clicked;
     if(this.isChui2Clicked){
       this.isChui1Clicked=true;

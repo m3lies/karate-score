@@ -1,9 +1,10 @@
 import {Component, OnInit, ViewChild, OnDestroy, ChangeDetectorRef} from '@angular/core';
 import {Subscription, take} from 'rxjs';
 import {PenaltiesComponent} from '../penalties/penalties.component';
-import {SharedDataService} from '../shared-data.service';
+import {SenshuState, SharedDataService} from '../shared-data.service';
 import {TimerService} from "../timer.service";
 import {PenaltiesService} from "../penalties.service";
+import {SenshuComponent} from "../senshu/senshu.component";
 
 @Component({
   selector: 'app-score',
@@ -13,6 +14,8 @@ import {PenaltiesService} from "../penalties.service";
 export class ScoreComponent implements OnInit, OnDestroy {
   @ViewChild('penalties1') penaltiesComponent1!: PenaltiesComponent;
   @ViewChild('penalties2') penaltiesComponent2!: PenaltiesComponent;
+  @ViewChild('senshu1', { static: true }) senshuComponent1!: SenshuComponent;
+  @ViewChild('senshu2',{ static: true }) senshuComponent2!: SenshuComponent;
 
   totalScores: number[] = [0, 0];
   scores: { yuko: number; wazaAri: number; ippon: number }[] = [
@@ -28,7 +31,8 @@ export class ScoreComponent implements OnInit, OnDestroy {
   constructor(
     private sharedDataService: SharedDataService,
     private changeDetectorRef: ChangeDetectorRef,
-    private timerService: TimerService, private penaltiesService: PenaltiesService
+    private timerService: TimerService,
+    private penaltiesService: PenaltiesService
   ) {
   }
 
@@ -42,8 +46,24 @@ export class ScoreComponent implements OnInit, OnDestroy {
       this.sharedDataService.scores$.subscribe(scores => {
         this.scores = scores;
         this.postUpdatesToReadOnlyWindow();
-      })
+      }),
+
     );
+    // Subscribe to senshu state updates for both participants
+    this.subscriptions.push(
+      this.sharedDataService.senshuState$1.subscribe((senshu) => {
+        // Handle senshu state for Participant 1
+        // You can access it as senshu.isSenshu
+        this.postUpdatesToReadOnlyWindow();
+      }),
+      this.sharedDataService.senshuState$2.subscribe((senshu) => {
+        // Handle senshu state for Participant 2
+        // You can access it as senshu.isSenshu
+        this.postUpdatesToReadOnlyWindow();
+      })
+
+    );
+
 
     // Subscribe to timer updates from TimerService
     this.subscriptions.push(
@@ -85,6 +105,8 @@ export class ScoreComponent implements OnInit, OnDestroy {
     this.penaltiesComponent1.resetPenalties();
     this.penaltiesComponent2.resetPenalties();
     this.sharedDataService.resetScores();
+    this.senshuComponent1.resetSenshu();
+    this.senshuComponent2.resetSenshu();
 
     // Use the component's initialMinutes and initialSeconds as arguments
     this.timerService.resetTimer(this.initialMinutes, this.initialSeconds);
@@ -110,6 +132,8 @@ export class ScoreComponent implements OnInit, OnDestroy {
     if (this.scoreReadonlyWindow && !this.scoreReadonlyWindow.closed) {
       const penaltiesState1 = this.preparePenaltiesState(this.penaltiesComponent1);
       const penaltiesState2 = this.preparePenaltiesState(this.penaltiesComponent2);
+      const senshuState1 = this.prepareSenshuState(this.senshuComponent1);
+      const senshuState2 = this.prepareSenshuState(this.senshuComponent2);
       // Ensure penalties states are included in the data object
       const data = {
         totalScores: this.sharedDataService.totalScoresSubject.value,
@@ -117,6 +141,8 @@ export class ScoreComponent implements OnInit, OnDestroy {
         timerState: this.timerValue, // Ensure this is correctly fetching the current timer value
         penaltiesState1: penaltiesState1,
         penaltiesState2: penaltiesState2,
+        senshuState1: senshuState1,
+        senshuState2 : senshuState2
       };
 
       console.log('Sending updates to read-only window'); // Add this line for debugging
@@ -126,6 +152,12 @@ export class ScoreComponent implements OnInit, OnDestroy {
     }
   }
 
+  prepareSenshuState(senshuComponent: SenshuComponent | null) {
+    console.log("prepareSenshuState");
+    return senshuComponent ? {
+      isSenshu: senshuComponent.isSenshu
+    } : null;
+  }
   preparePenaltiesState(penaltiesComponent: PenaltiesComponent | null) {
     console.log("preparePenaltiesState")
     return penaltiesComponent ? {

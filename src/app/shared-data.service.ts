@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {Router} from "@angular/router";
+import {PenaltiesState} from "./penalties.service";
 
+export interface SenshuState{
+  isSenshu:boolean;
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -20,8 +24,32 @@ export class SharedDataService {
 
   totalScores$: Observable<number[]> = this.totalScoresSubject.asObservable();
 
-  constructor(private router: Router) {}
+  private senshuSubject1 = new BehaviorSubject({isSenshu: false});
+  private senshuSubject2 = new BehaviorSubject({isSenshu: false});
 
+  senshuState$1: Observable<SenshuState> = this.senshuSubject1.asObservable();
+  senshuState$2: Observable<SenshuState> = this.senshuSubject2.asObservable();
+  constructor(private router: Router) {
+    // Listen for messages from other windows
+    window.addEventListener('message', this.handleMessage.bind(this), false);
+  }
+
+  updateSenshuState1(newState: SenshuState) {
+    this.senshuSubject1.next(newState);
+    this.broadcastChange('senshuState1', newState);
+  }
+
+  updateSenshuState2(newState: SenshuState) {
+    this.senshuSubject2.next(newState);
+    this.broadcastChange('senshuState2', newState);
+  }
+
+  private broadcastChange(participant: string, state: SenshuState) {
+    // Assuming 'scoreReadonlyWindow' is the reference to the opened read-only window
+    // This part needs to be adapted based on how you reference or access the read-only window
+    const customEvent = { type: participant, data: state };
+    window.postMessage(customEvent, '*'); // Use '*' for simplicity, consider more specific target origin for security
+  }
   // Methods to add and remove scores
   addScore(scoreType: string, participantNumber: number) {
     const participantIndex = participantNumber - 1;
@@ -66,6 +94,7 @@ export class SharedDataService {
     this.setTotalScores([0, 0]);
   }
 
+
   // Method to calculate total scores
   private calculateTotalScores() {
     const currentScores = this.scoresSubject.value;
@@ -100,6 +129,10 @@ export class SharedDataService {
     console.log('Opening score readonly window with data:', queryParams); // Added console log
     // Open the new window with the generated URL
     window.open(urlWithParams.toString(), '_blank');
+  }
+
+  private handleMessage(event: MessageEvent) {
+    // Handle incoming messages if needed
   }
 
 }

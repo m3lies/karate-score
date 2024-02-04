@@ -14,6 +14,7 @@ import {SenshuComponent} from './senshu/senshu.component';
 import {PenaltiesReadonlyComponent} from "./penalties-readonly/penalties-readonly.component";
 import {ScoreReadOnlyComponent} from "./score-readonly/score-readonly.component";
 import {SharedDataService} from "./shared-data.service";
+import {SenshuReadonlyComponent} from "./senshu-readonly/senshu-readonly.component";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {SharedDataService} from "./shared-data.service";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    SenshuReadonlyComponent
 
   ],
   providers: [],
