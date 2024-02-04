@@ -1,0 +1,17 @@
+/* penalties-readonly.component.scss */
+.penalty {
+  padding: 5px;
+  margin: 2px;
+  display: inline-block;
+  color: #fff;
+  background-color: #444; /* Default inactive state */
+}
+
+.penalty-chui1,
+.penalty-chui2,
+.penalty-chui3,
+.penalty-hansokuChui,
+.penalty-hansoku {
+  background-color: black; /* Active state color */
+  border-radius: 5px;
+}

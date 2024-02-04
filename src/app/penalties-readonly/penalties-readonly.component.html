@@ -1,7 +1,7 @@
-<div class="penalties row">
-  <div class="col-md-2">C1: {{ chui1 }}</div>
-  <div class="col-md-2">C2: {{ chui2 }}</div>
-  <div class="col-md-2">C3: {{ chui3 }}</div>
-  <div class="col-md-2">HC: {{ hansokuChui }}</div>
-  <div class="col-md-2">H: {{ hansoku }}</div>
+<div class="penalties-readonly">
+  <div *ngIf="chui1" class="penalty penalty-chui1">Chui 1</div>
+  <div *ngIf="chui2" class="penalty penalty-chui2">Chui 2</div>
+  <div *ngIf="chui3" class="penalty penalty-chui3">Chui 3</div>
+  <div *ngIf="hansokuChui" class="penalty penalty-hansokuChui">Hansoku Chui</div>
+  <div *ngIf="hansoku" class="penalty penalty-hansoku">Hansoku</div>
 </div>

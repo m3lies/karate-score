@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild, OnDestroy, ChangeDetectorRef} from '@angular/core';
 import {Subscription, take} from 'rxjs';
 import {PenaltiesComponent} from '../penalties/penalties.component';
-import {TimerComponent} from '../timer/timer.component';
 import {SharedDataService} from '../shared-data.service';
 import {TimerService} from "../timer.service";
+import {PenaltiesService} from "../penalties.service";
 
 @Component({
   selector: 'app-score',
@@ -28,7 +28,7 @@ export class ScoreComponent implements OnInit, OnDestroy {
   constructor(
     private sharedDataService: SharedDataService,
     private changeDetectorRef: ChangeDetectorRef,
-    private timerService: TimerService
+    private timerService: TimerService, private penaltiesService: PenaltiesService
   ) {
   }
 
@@ -49,6 +49,16 @@ export class ScoreComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.timerService.getTimerValue$().subscribe(timerValue => {
         // Use timerValue for whatever is needed
+        this.postUpdatesToReadOnlyWindow();
+      })
+    );
+    this.subscriptions.push(
+      this.penaltiesService.penaltiesState$1.subscribe(penaltiesState => {
+        // Handle penaltiesState1 updates here
+        this.postUpdatesToReadOnlyWindow();
+      }),
+      this.penaltiesService.penaltiesState$2.subscribe(penaltiesState => {
+        // Handle penaltiesState2 updates here
         this.postUpdatesToReadOnlyWindow();
       })
     );
@@ -98,19 +108,35 @@ export class ScoreComponent implements OnInit, OnDestroy {
 
   postUpdatesToReadOnlyWindow() {
     if (this.scoreReadonlyWindow && !this.scoreReadonlyWindow.closed) {
-      // Assuming you manage to capture the current timer value in a variable named `currentTimerValue`
-      const currentTimerValue = this.timerValue; // You should obtain this value from subscription or another method
+      const penaltiesState1 = this.preparePenaltiesState(this.penaltiesComponent1);
+      const penaltiesState2 = this.preparePenaltiesState(this.penaltiesComponent2);
+      // Ensure penalties states are included in the data object
       const data = {
-        type: 'update',
-        data: {
-          totalScores: this.sharedDataService.totalScoresSubject.value,
-          scores: this.sharedDataService.scoresSubject.value,
-          timerState: currentTimerValue // Use the current timer value instead of the observable
-        }
+        totalScores: this.sharedDataService.totalScoresSubject.value,
+        scores: this.sharedDataService.scoresSubject.value,
+        timerState: this.timerValue, // Ensure this is correctly fetching the current timer value
+        penaltiesState1: penaltiesState1,
+        penaltiesState2: penaltiesState2,
       };
-      this.scoreReadonlyWindow.postMessage(data, '*');
+
+      console.log('Sending updates to read-only window'); // Add this line for debugging
+
+      // Post the complete data, including penalties states
+      this.scoreReadonlyWindow.postMessage(data, '*'); // Consider specifying a more precise target origin in production
     }
   }
 
+  preparePenaltiesState(penaltiesComponent: PenaltiesComponent | null) {
+    console.log("preparePenaltiesState")
+    return penaltiesComponent ? {
+      chui1: penaltiesComponent.isChui1Clicked ? 1 : 0,
+      chui2: penaltiesComponent.isChui2Clicked ? 1 : 0,
+      chui3: penaltiesComponent.isChui3Clicked ? 1 : 0,
+      hansokuChui: penaltiesComponent.isHansokuChuiClicked ? 1 : 0,
+      hansoku: penaltiesComponent.isHansokuClicked ? 1 : 0,
+    } : null;
+  }
 
 }
+
+

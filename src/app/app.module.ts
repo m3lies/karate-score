@@ -7,7 +7,7 @@ import {FormsModule} from "@angular/forms";
 import {TimerComponent} from './timer/timer.component';
 import {ScoreComponent} from './score/score.component';
 
-import {TimerReadonlyComponent} from './timer-readonly/timer-readonly.component';
+import {TimerReadOnlyComponent} from './timer-readonly/timer-readonly.component';
 import {PenaltiesComponent} from './penalties/penalties.component';
 import {TimerFormatPipe} from "./timer-format.pipe";
 import {SenshuComponent} from './senshu/senshu.component';
@@ -22,7 +22,7 @@ import {SharedDataService} from "./shared-data.service";
     TimerFormatPipe,
     ScoreComponent,
     ScoreReadOnlyComponent,
-    TimerReadonlyComponent,
+    TimerReadOnlyComponent,
     PenaltiesComponent,
     PenaltiesReadonlyComponent,
     SenshuComponent

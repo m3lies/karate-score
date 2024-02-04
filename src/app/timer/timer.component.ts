@@ -21,7 +21,11 @@ export class TimerComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscriptions.add(
-      this.timerService.getTimerValue$().subscribe((value: number) => this.timerValue = value)
+      this.timerService.getTimerValue$().subscribe((value: number) => {
+        this.timerValue = value;
+        // Correctly broadcast the timerValue when it updates
+        window.postMessage({ timerState: this.timerValue }, window.location.origin);
+      })
     );
 
     this.subscriptions.add(
@@ -41,6 +45,7 @@ export class TimerComponent implements OnInit, OnDestroy {
   // Method to set and start the timer based on input values
   updateTimer() {
     this.timerService.resetTimer(this.initialMinutes, this.initialSeconds);
+
 
   }
 

@@ -17,7 +17,14 @@
       <div class="row">
         <!-- Display penalties for Participant 1 -->
         <div class="col-md-12">
-          <app-penalties-readonly></app-penalties-readonly>
+          <app-penalties-readonly #penalties1
+                                  [chui1]="penaltiesState1.chui1 > 0"
+                                  [chui2]="penaltiesState1.chui2 > 0"
+                                  [chui3]="penaltiesState1.chui3 > 0"
+                                  [hansokuChui]="penaltiesState1.hansokuChui > 0"
+                                  [hansoku]="penaltiesState1.hansoku > 0"></app-penalties-readonly>
+
+
         </div>
       </div>
     </div>
@@ -42,7 +49,12 @@
         <div class="row">
           <!-- Display penalties for Participant 2 -->
           <div class="col-md-12">
-            <app-penalties-readonly></app-penalties-readonly>
+            <app-penalties-readonly #penalties2
+                                    [chui1]="penaltiesState2.chui1 > 0"
+                                    [chui2]="penaltiesState2.chui2 > 0"
+                                    [chui3]="penaltiesState2.chui3 > 0"
+                                    [hansokuChui]="penaltiesState2.hansokuChui > 0"
+                                    [hansoku]="penaltiesState2.hansoku > 0"></app-penalties-readonly>
           </div>
         </div>
       </div>
