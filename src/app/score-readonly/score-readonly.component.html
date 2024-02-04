@@ -1,28 +1,28 @@
 <div class="container mt-4">
   <div class="row">
     <!-- Participant 1 Score Display -->
-    <div class="col-md-6 bg-primary text-white text-center">
+    <div class="col-md-6 bg-danger text-white text-center">
       <div class="row justify-content-between">
-        <div class="col-md-auto">AO</div>
-        <div class="col-md-auto"><h2 style="font-size: 36px;">{{ totalScores[0] }} <app-senshu-readonly #senshu1 [isSenshu]="senshu1.isSenshu"></app-senshu-readonly> </h2></div>
+        <div class="col-md-auto">AKA</div>
+        <div class="col-md-auto"><h2 style="font-size: 36px;">{{ totalScores[1] }} <app-senshu-readonly #senshu2 [isSenshu]="senshu2.isSenshu"></app-senshu-readonly> </h2></div>
       </div>
       <div class="row">
         <!-- Display score elements without editing controls -->
         <div class="col-md-12">
-          <button class="btn btn-outline-light m-2 no-hover">Yuko {{ scores[0].yuko }}</button>
-          <button class="btn btn-outline-light m-2 no-hover">Waza-ari {{ scores[0].wazaAri }}</button>
-          <button class="btn btn-outline-light m-2 no-hover">Ippon {{ scores[0].ippon }}</button>
+          <button class="btn btn-outline-light m-2 no-hover">Yuko {{ scores[1].yuko }}</button>
+          <button class="btn btn-outline-light m-2 no-hover">Waza-ari {{ scores[1].wazaAri }}</button>
+          <button class="btn btn-outline-light m-2 no-hover">Ippon {{ scores[1].ippon }}</button>
         </div>
       </div>
       <div class="row">
         <!-- Display penalties for Participant 1 -->
         <div class="col-md-12">
-          <app-penalties-readonly #penalties1
-                                  [chui1]="penaltiesState1.chui1 > 0"
-                                  [chui2]="penaltiesState1.chui2 > 0"
-                                  [chui3]="penaltiesState1.chui3 > 0"
-                                  [hansokuChui]="penaltiesState1.hansokuChui > 0"
-                                  [hansoku]="penaltiesState1.hansoku > 0"></app-penalties-readonly>
+          <app-penalties-readonly #penalties2
+                                  [chui1]="penaltiesState2.chui1 > 0"
+                                  [chui2]="penaltiesState2.chui2 > 0"
+                                  [chui3]="penaltiesState2.chui3 > 0"
+                                  [hansokuChui]="penaltiesState2.hansokuChui > 0"
+                                  [hansoku]="penaltiesState2.hansoku > 0"></app-penalties-readonly>
 
 
         </div>
@@ -35,26 +35,26 @@
     </div>
 
     <!-- Participant 2 Score Display -->
-    <div class="col-md-6 bg-danger text-white text-center">
+    <div class="col-md-6 bg-primary text-white text-center">
       <div class="row justify-content-between">
-        <div class="col-md-auto"><h2 style="font-size: 36px;">{{ totalScores[1] }}  <app-senshu-readonly #senshu2 [isSenshu]="senshu2.isSenshu"></app-senshu-readonly></h2></div>
-        <div class="col-md-auto">AKA</div>
+        <div class="col-md-auto"><h2 style="font-size: 36px;">{{ totalScores[0] }}  <app-senshu-readonly #senshu1 [isSenshu]="senshu1.isSenshu"></app-senshu-readonly></h2></div>
+        <div class="col-md-auto">AO</div>
       </div>
       <div class="row">
         <div class="col-md-12">
-          <button class="btn btn-outline-light m-2 no-hover">Yuko {{ scores[1].yuko }}</button>
-          <button class="btn btn-outline-light m-2 no-hover">Waza-ari {{ scores[1].wazaAri }}</button>
-          <button class="btn btn-outline-light m-2 no-hover">Ippon {{ scores[1].ippon }}</button>
+          <button class="btn btn-outline-light m-2 no-hover">Yuko {{ scores[0].yuko }}</button>
+          <button class="btn btn-outline-light m-2 no-hover">Waza-ari {{ scores[0].wazaAri }}</button>
+          <button class="btn btn-outline-light m-2 no-hover">Ippon {{ scores[0].ippon }}</button>
         </div>
         <div class="row">
           <!-- Display penalties for Participant 2 -->
           <div class="col-md-12">
-            <app-penalties-readonly #penalties2
-                                    [chui1]="penaltiesState2.chui1 > 0"
-                                    [chui2]="penaltiesState2.chui2 > 0"
-                                    [chui3]="penaltiesState2.chui3 > 0"
-                                    [hansokuChui]="penaltiesState2.hansokuChui > 0"
-                                    [hansoku]="penaltiesState2.hansoku > 0"></app-penalties-readonly>
+            <app-penalties-readonly #penalties1
+                                    [chui1]="penaltiesState1.chui1 > 0"
+                                    [chui2]="penaltiesState1.chui2 > 0"
+                                    [chui3]="penaltiesState1.chui3 > 0"
+                                    [hansokuChui]="penaltiesState1.hansokuChui > 0"
+                                    [hansoku]="penaltiesState1.hansoku > 0"></app-penalties-readonly>
           </div>
         </div>
       </div>
