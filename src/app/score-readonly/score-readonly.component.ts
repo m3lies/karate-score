@@ -17,6 +17,7 @@ export class ScoreReadOnlyComponent implements OnInit {
   timeLeft: number = 0;
   private totalScoresSubscription: Subscription | undefined;
   private scoresSubscription: Subscription | undefined;
+  timerReadOnlyComponent: any;
 
   constructor(private sharedDataService: SharedDataService, private changeDetectorRef: ChangeDetectorRef) {
   }
@@ -24,25 +25,21 @@ export class ScoreReadOnlyComponent implements OnInit {
     window.addEventListener('message', this.handleMessage.bind(this), false);
   }
 
-  ngOnDestroy() {
-    window.removeEventListener('message', this.handleMessage.bind(this), false);
-  }
-
-  private handleMessage(event: MessageEvent) {
-    // Validate the origin if known, to enhance security
-    // if (event.origin !== "YOUR_EXPECTED_ORIGIN") return;
-    console.log("Received message:", event.data);
-    const { totalScores, scores } = event.data;
-    this.totalScores = totalScores;
-    this.scores = scores;
-    if (event.data.type === 'totalScoresUpdate' && event.data.data) {
-      this.totalScores = event.data.data;
-      this.changeDetectorRef.detectChanges();
-    } else if (event.data.type === 'timerUpdate' && event.data.data !== undefined) {
-      // Handle timer update
-      this.changeDetectorRef.detectChanges();
+  handleMessage(event: MessageEvent) {
+    // Perform origin check here for security if needed
+    if (event.data.type === 'update') {
+      const { totalScores, scores, timerState } = event.data.data;
+      this.totalScores = totalScores;
+      this.scores = scores;
+      this.timerReadOnlyComponent.updateTimer(timerState);
+      // Pass timerState to TimerReadonlyComponent if necessary
+      // For example, if TimerReadonlyComponent is a child component, you could use a service or direct component interaction
+      this.changeDetectorRef.detectChanges(); // Since OnPush is used
     }
-    this.changeDetectorRef.detectChanges(); // Trigger change detection to update the view
   }
 
+  ngOnDestroy() {
+    window.removeEventListener('message', this.handleMessage.bind(this));
+
+  }
 }

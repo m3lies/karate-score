@@ -1,101 +1,58 @@
-import { Component, Input } from '@angular/core';
-import {BehaviorSubject} from "rxjs";
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { TimerService } from '../timer.service'; // Ensure this path is correct
+import { FormsModule } from '@angular/forms'; // Make sure to import FormsModule in your module
 
 @Component({
   selector: 'app-timer',
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.scss'],
 })
-export class TimerComponent {
+export class TimerComponent implements OnInit, OnDestroy {
   @Input() initialMinutes: number = 0;
   @Input() initialSeconds: number = 0;
-  timerValue: number = this.calculateTotalSeconds();
+
+  timerValue: number = 0;
   isRunning: boolean = false;
-  intervalId: any;
-  isLast15Seconds: boolean = false; // Add this property
-  audio = new Audio('assets/bip-end.mp3');
-  audio15Seconds = new Audio('assets/15bip.mp3');
-  private timerState = new BehaviorSubject<number>(this.timerValue);
-  timerState$ = this.timerState.asObservable(); // Public Observable for other components to subscribe to
+  isLast15Seconds: boolean = false;
+  private subscriptions = new Subscription();
 
+  constructor(private timerService: TimerService) {}
 
-  calculateTotalSeconds(): number {
-    return this.initialMinutes * 60 + this.initialSeconds;
+  ngOnInit() {
+    this.subscriptions.add(
+      this.timerService.getTimerValue$().subscribe((value: number) => this.timerValue = value)
+    );
 
+    this.subscriptions.add(
+      this.timerService.getIsRunning$().subscribe((status: boolean) => this.isRunning = status)
+    );
+
+    this.subscriptions.add(
+      this.timerService.getIsLast15Seconds$().subscribe((status: boolean) => this.isLast15Seconds = status)
+    );
   }
 
+  // Method to ensure seconds input is within 0-59 range
   onInputSecondsChange() {
-    if (this.initialSeconds < 0) {
-      this.initialSeconds = 0;
-    } else if (this.initialSeconds > 59) {
-      this.initialSeconds = 59;
-    }
+    this.initialSeconds = Math.max(0, Math.min(59, this.initialSeconds));
+  }
+
+  // Method to set and start the timer based on input values
+  updateTimer() {
+    this.timerService.resetTimer(this.initialMinutes, this.initialSeconds);
+
   }
 
   startTimer() {
-    if (!this.isRunning) {
-      this.isRunning = true;
-      this.intervalId = setInterval(() => {
-        if (this.timerValue > 0) {
-          this.timerValue--;
-          // Check if the timer is in the last 15 seconds
-          if (this.timerValue <= 15) {
-            if (this.timerValue == 15){
-              const playPromise = this.audio15Seconds.play();
-
-              if (playPromise !== undefined) {
-                playPromise.then(_ => {
-                  // Autoplay started successfully
-                }).catch(error => {
-                  // Autoplay was prevented
-                  console.error('Error playing audio:', error);
-                });
-              }
-            }
-            this.isLast15Seconds = true;
-          } else {
-            this.isLast15Seconds = false;
-          }
-
-          } else {
-          this.stopTimer();
-          // Play the sound when the timer reaches zero
-          const playPromise = this.audio.play();
-
-          if (playPromise !== undefined) {
-            playPromise.then(_ => {
-              // Autoplay started successfully
-            }).catch(error => {
-              // Autoplay was prevented
-              console.error('Error playing audio:', error);
-            });
-          }
-        }
-      }, 1000);
-    }
-    this.timerState.next(this.timerValue);
+    this.timerService.startTimer(this.initialMinutes, this.initialSeconds);
   }
-
 
   stopTimer() {
-    if (this.isRunning) {
-      this.isRunning = false;
-      clearInterval(this.intervalId);
-    }
-    this.timerState.next(this.timerValue);
+    this.timerService.stopTimer();
   }
 
-  resetTimer() {
-    this.stopTimer();
-    this.timerValue = this.calculateTotalSeconds();
-    this.isLast15Seconds = false; // Reset the last 15 seconds flag
-    this.timerState.next(this.timerValue);
-  }
-
-  updateTimer() {
-    this.timerValue = this.calculateTotalSeconds();
-    this.stopTimer();
-    this.isLast15Seconds = false; // Reset the last 15 seconds flag
-    this.timerState.next(this.timerValue);
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

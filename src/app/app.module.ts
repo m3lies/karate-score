@@ -33,7 +33,7 @@ import {SharedDataService} from "./shared-data.service";
     FormsModule
 
   ],
-  providers: [SharedDataService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

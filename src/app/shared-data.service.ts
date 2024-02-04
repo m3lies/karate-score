@@ -6,16 +6,17 @@ import {Router} from "@angular/router";
   providedIn: 'root',
 })
 export class SharedDataService {
-  private scoresSubject = new BehaviorSubject<{ yuko: number; wazaAri: number; ippon: number }[]>(
+  scoresSubject = new BehaviorSubject<{ yuko: number; wazaAri: number; ippon: number }[]>(
     [
       { yuko: 0, wazaAri: 0, ippon: 0 }, // Participant 1 scores
       { yuko: 0, wazaAri: 0, ippon: 0 }, // Participant 2 scores
     ]
   );
 
+
   scores$: Observable<{ yuko: number; wazaAri: number; ippon: number }[]> = this.scoresSubject.asObservable();
 
-  private totalScoresSubject = new BehaviorSubject<number[]>([0, 0]);
+  totalScoresSubject = new BehaviorSubject<number[]>([0, 0]);
 
   totalScores$: Observable<number[]> = this.totalScoresSubject.asObservable();
 
